@@ -1,0 +1,29 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Equipamentos</h1>
+
+    <p-table [value]="equipamentos" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-equipamento>
+            <tr>
+                <td>{{ equipamento.id }}</td>
+                <td>{{ equipamento.nome }}</td>
+                <td>{{ equipamento.sigla }}</td>
+                <td>
+                    <!-- <a routerLink="['/equipamento',equipamento.id]">Editar</a> -->
+                    <a [routerLink]="['/equipamento',equipamento.id]" class="btn btn-primary mr-2 pi pi-pencil"></a>
+                    <a (click)="delete(equipamento.id)" class="btn btn-danger pi pi-trash"></a>
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button class="btn btn-success" style="margin-top: 16px;" (click)="newEntity()">Novo</button>
+</div>

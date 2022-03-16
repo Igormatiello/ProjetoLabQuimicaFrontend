@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Configuração de Email</h1>
+        <button *ngIf="form.get('id').value != ''"
+                type="button"
+                (click)="testeEmail()"
+                class="btn btn-primary h-100">
+            <i class="pi pi-play"></i>
+            Testar Envio
+        </button>
+    </div>
+    <p-progressSpinner *ngIf="showSpinner" class="d-flex"></p-progressSpinner>
+    <form [formGroup]="form" class="form-group w-100">
+        <div class="container-fluid">
+            <p-fieldset legend="Padrão para envio">
+                <div class="row">
+                    <div class="p-col-5">
+                        <label for="host">Host</label>
+                        <span class="field-required">*</span>
+                        <input type="text"
+                               id="host"
+                               class="form-control"
+                               formControlName="host"/>
+                        <div *ngIf="form.get('host').invalid && (form.get('host').dirty || form.get('host').touched)"
+                             class="alert alert-danger">
+                            O Host é Obrigatório
+                        </div>
+                    </div>
+
+                    <div class="p-col-2">
+                        <label for="porta">Porta</label>
+                        <span class="field-required">*</span>
+                        <input type="number"
+                               id="porta"
+                               class="form-control"
+                               formControlName="porta"/>
+                        <div *ngIf="form.get('porta').invalid && (form.get('porta').dirty || form.get('porta').touched)"
+                             class="alert alert-danger">
+                            A Porta é Obrigatória
+                        </div>
+                    </div>
+
+                    <div class="p-col-5">
+                        <label for="remetente">Remetente</label>
+                        <span class="field-required">*</span>
+                        <input type="text"
+                               id="remetente"
+                               class="form-control"
+                               formControlName="remetente"/>
+                        <div
+                            *ngIf="form.get('remetente').invalid && (form.get('remetente').dirty || form.get('remetente').touched)"
+                            class="alert alert-danger">
+                            O Remetente é Obrigatório
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="p-col-6">
+                        <label for="usuario">Usuário</label>
+                        <span class="field-required">*</span>
+                        <input type="text"
+                               id="usuario"
+                               class="form-control"
+                               formControlName="usuario"/>
+                        <div
+                            *ngIf="form.get('usuario').invalid && (form.get('usuario').dirty || form.get('usuario').touched)"
+                            class="alert alert-danger">
+                            O Usuário é Obrigatório
+                        </div>
+                    </div>
+
+                    <div class="p-col-6">
+                        <label for="senha">Senha</label>
+                        <span class="field-required">*</span>
+                        <input type="password"
+                               id="senha"
+                               class="form-control"
+                               formControlName="senha"/>
+                        <div *ngIf="form.get('senha').invalid && (form.get('senha').dirty || form.get('senha').touched)"
+                             class="alert alert-danger">
+                            A Senha é Obrigatória
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+
+            <p-fieldset legend="Padrão de Recebimento" [style]="{'marginTop': '15px'}">
+                <div class="row">
+                    <div class="p-col-12">
+                        <label for="emailRecebimento">Email</label>
+                        <span class="field-required">*</span>
+                        <input type="email"
+                               id="emailRecebimento"
+                               class="form-control"
+                               formControlName="emailRecebimento"/>
+                        <div *ngIf="form.get('emailRecebimento').invalid && (form.get('emailRecebimento').dirty || form.get('emailRecebimento').touched)"
+                             class="alert alert-danger">
+                            <span *ngIf="form.get('emailRecebimento').hasError('required')">O email é obrigatório</span>
+                            <span *ngIf="form.get('emailRecebimento').hasError('email')">Email inválido</span>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </form>
+
+    <div class="container-fluid">
+        <div class="row">
+            <button type="button"
+                    class="btn btn-default"
+                    (click)="cancel()">
+                Cancelar
+            </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    [disabled]="!form.valid"
+                    (click)="save()">
+                Salvar
+            </button>
+        </div>
+    </div>
+</div>

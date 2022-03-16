@@ -1,0 +1,15 @@
+#mydiv {
+    top: 15vh;
+    left: 10%;
+    width: 80%;
+    position: fixed;
+}
+
+.bg-login{
+    padding: 0px 20px 0px 20px;
+    width: 50%;
+    background-image: url('../../../assets/images/logo-login.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Programas de Ensino</h1>
+
+    <p-table [value]="prgEnsinos" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-prgEnsino>
+            <tr>
+                <td>{{ prgEnsino.id }}</td>
+                <td>{{ prgEnsino.nome }}</td>
+                <td>{{ prgEnsino.sigla }}</td>
+                <td align="center">
+                    <a [routerLink]="['/prgEnsino',prgEnsino.id]" class="btn btn-primary mr-2 pi pi-pencil"  ></a>
+                    <a (click)="delete(prgEnsino.id)" class="btn btn-danger pi pi-trash"></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button class="btn btn-success mt-4" (click)="newEntity()">Novo</button>
+</div>

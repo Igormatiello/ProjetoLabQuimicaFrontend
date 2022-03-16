@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Solicitações de Cadastro</h1>
+    <p-table [value]="solicitacoesCadastro" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th width="30%">Nome</th>
+                <th>Documento</th>
+                <th>Tipo de Pessoa</th>
+                <th>Instituição do Orientador</th>
+                <th>CPF do Orientador</th>
+                <th>Programa de Ensino</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-solicitacaoCadastro>
+            <tr>
+                <td>{{ solicitacaoCadastro.nome }}</td>
+                <td>{{ solicitacaoCadastro.documento }}</td>
+                <td>{{ solicitacaoCadastro.tipoPessoa }}</td>
+                <td>{{ solicitacaoCadastro.nomeInstituicao }}</td>
+                <td>{{ solicitacaoCadastro.cpfOrientador }}</td>
+                <td>{{ solicitacaoCadastro.nomeProgramaEnsino }}</td>
+                <td>
+                    <a [routerLink]="['/solicitacao-cadastro',solicitacaoCadastro.id]" class="btn btn-primary mr-2">Avaliar</a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

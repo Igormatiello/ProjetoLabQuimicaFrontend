@@ -1,0 +1,32 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Cidades</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <form [formGroup]="form">
+                    <div class="padding-16 w-500px">
+                        <label for="nome">Nome: </label>
+                        <input class="m-4 w-100" type="text" id="nome" class="form-control" formControlName="nome">
+                        <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty ||
+                        form.get('nome').touched)" class="alert alert-danger">
+                        O Nome é Obrigatório
+                    </div>
+                    </div>
+
+                    <div class="padding-16">
+                        <label for="uf">UF: </label>
+                        <br>
+                        <p-dropdown id="uf" [options]='listaUfs' formControlName="uf"></p-dropdown>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    fim class row-->
+    <div class="row">
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">Salvar
+        </button>
+    </div>
+</div>

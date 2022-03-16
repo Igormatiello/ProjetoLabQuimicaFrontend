@@ -1,0 +1,126 @@
+<div class="container">
+<h1 class="d-flex">Formulários Finalizados ou Recusados</h1>
+
+<div class="text-right mb-3">
+  <label>Situação: </label>
+  <p-dropdown class="ml-2" [options]='filtro' (onChange)="filtrar($event)">
+  </p-dropdown>
+  <input type="text" class="ui-g-12 ui-md-9" pInputText placeholder="Filtre pelo que desejar"
+  (keyup)="dv.filterGlobal($event.target.value ,'contains')">
+</div>
+<p-table #dv [value]="formulariosFilter" [columns]="cols"  selectionMode="single"  [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+  <ng-template pTemplate="header">
+    <tr class="text-center">
+      <th class="p-col-2">Serviços</th>
+      <th class="p-col-2">Solicitante</th>
+      <th class="p-col-2">Instituição</th>
+      <th class="p-col-1">Programa de Ensino</th>
+      <th class="p-col-1">Data de Solicitação</th>
+      <th class="p-col-1">Situação</th>
+      <th class="p-col-1">Detalhes</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-formulario>
+    <tr class="text-center">
+      <td> {{ formulario.nomeServico }} </td>
+      <td> {{ formulario.pessoa.nome }} </td>
+      <td> {{ formulario.participacaoPrograma?.orientador.instituicao.nome }} </td>
+      <td> {{ formulario.participacaoPrograma?.programaEnsino.sigla }} </td>
+      <td> {{ formulario.dataSolicitacao}}</td>
+      <td class="text-center">
+          <span pTooltip='{{formulario.motivoRecusaAmostra}}'
+          class="{{formulario.status.toLowerCase()}}">
+          <b>{{ formulario.status | labelValue:statusFormulario}}</b>
+        </span>
+      </td>
+      <td>
+        <a (click)="visualizarClick(formulario.id)" (click)="display=true"
+        class="btn btn-primary pi pi-eye text-white"></a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+</div>
+
+<p-dialog header="Dados do formulário" [(visible)]="display" modal="modal" showEffect="fade" class="modalTeste">
+  <div>
+    <p-scrollPanel [style]="{width: '100%', height: '500px'}">
+
+      <div class="ui-g-4">
+        <label>Requerente</label>
+        <input type="text" class="form-control" [value]="formularios2.pessoa?.nome" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-4">
+        <label>Serviço(s)</label>
+        <input type="text" class="form-control" value="{{formularios2.nomeServico}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-4">
+        <label>Data de Solicitação</label>
+        <input type="text" class="form-control" value="{{formularios2.dataSolicitacao}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Equipamento</label>
+        <input type="text" class="form-control" value="{{formularios2.equipamento?.nome}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Programa de Ensino</label>
+        <input type="text" class="form-control" value="{{formularios2.nomeProgramaEnsino}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Número de amostras</label>
+        <input type="text" class="form-control" value="{{formularios2.numeroAmostras}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Natureza do projeto</label>
+        <input type="text" class="form-control" value="{{formularios2.naturezaProjeto}}" [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Professor</label>
+        <input type="text" class="form-control" value="{{formularios2.professor?.nome}}"
+        [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Nome do Projeto</label>
+        <input type="text" class="form-control" value="{{formularios2.creditoProfessor?.nomeProjeto}}"
+        [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Status</label>
+        <input type="text" class="form-control" value="{{formularios2.status | labelValue:statusFormulario}}"
+          [readOnly]="true" />
+      </div>
+
+      <div class="ui-g-6">
+        <label>Motivo de recusa da amostra</label>
+        <textarea class="form-control" [rows]="3" [cols]="5" pInputTextarea
+          [readOnly]="true">{{formularios2.motivoRecusaAmostra}}</textarea>
+      </div>
+
+      <div class="ui-g-12">
+        <label>Laudo</label>
+        <ckeditor [(ngModel)]="formularios2.laudo" [editor]="Editor" [config]="{ toolbar: [ ''] }"
+          disabled="true"></ckeditor>
+      </div>
+
+      <div class="ui-g-12">
+        <label>Metodologia</label>
+        <ckeditor [(ngModel)]="formularios2.metodologia" [editor]="Editor" [config]="{ toolbar: [ ''] }"
+          disabled="true"></ckeditor>
+      </div>
+    </p-scrollPanel>
+
+  </div>
+  <p-footer>
+        <button pButton type="button" label="Voltar" class="ui-button-rounded"
+        (click)="display=false"></button>
+  </p-footer>
+</p-dialog>

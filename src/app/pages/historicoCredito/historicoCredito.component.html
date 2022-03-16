@@ -1,0 +1,34 @@
+<body>
+
+    <div class="container">
+        <h1 class="d-flex">Histórico de créditos</h1>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+                <input type="text" class="ui-g-12" pInputText placeholder="Filtre pelo que desejar"
+                    (keyup)="dv.filterGlobal($event.target.value ,'contains')">
+            </div>
+            <div class="ui-g-12 ui-lg-12">
+
+                <p-table #dv [value]="historicoCredito" [columns]="cols" selectionMode="single" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th class="p-col-2">Nome do Aluno</th>
+                        <th class="p-col-2">Nome do Projeto</th>
+                        <th class="p-col-2">Data do Projeto</th>
+                        <th class="p-col-2">Valor Pago</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-historicoCredito>
+                      <tr>
+                        <td> {{ historicoCredito.pessoa.nome }}</td>
+                        <td> {{ historicoCredito.nomeProjeto }}</td>
+                        <td> {{ historicoCredito.dataProjeto }}</td>
+                        <td> {{ historicoCredito.valorPago }}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+            </div>
+        </div>
+    </div>
+
+</body>

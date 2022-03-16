@@ -1,0 +1,262 @@
+<div class="container">
+    <h1>Solicitação de Cadastro</h1>
+    <form [formGroup]='form' class='form-group'>
+        <div class='p-grid'>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-4">
+                        <p-fieldset legend="Instituição de Ensino">
+                            <div class="p-col-12">
+                                <p>Origem</p>
+                                <p>{{form.value['nomeInstituicao']}}</p>
+                            </div>
+                            <div class="p-col-12">
+                                <label for="instituicao">Destino*</label>
+                                <p-dropdown
+                                    id="instituicao"
+                                    [options]="instituicoesOption"
+                                    [virtualScroll]="true"
+                                    [itemSize]="50"
+                                    [style]="{ width: '100%' }"
+                                    formControlName="instituicao"
+                                    [filter]="true"
+                                    (onChange)="buscaPessoaInstituicaoService($event.value.id)"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="p-col-4">
+                        <p-fieldset legend="Programa de Ensino">
+                            <div class="p-col-12">
+                                <p>Origem</p>
+                                <p>{{form.value['nomeProgramaEnsino']}}</p>
+                            </div>
+                            <div class="p-col-12">
+                                <label for="programaEnsino">Destino*</label>
+                                <p-dropdown
+                                    id="programaEnsino"
+                                    [options]="programasEnsinoOption"
+                                    [virtualScroll]="true"
+                                    [itemSize]="50"
+                                    [style]="{ width: '100%' }"
+                                    formControlName="programaEnsino"
+                                    [filter]="true"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div *ngIf="!ehProfessor" class="p-col-4">
+                        <p-fieldset legend="Orientador">
+                            <div class="p-col-12">
+                                <p>Origem</p>
+                                <p>{{form.value['cpfOrientador'] || '-' }}</p>
+                            </div>
+                            <div class="p-col-12">
+                                <label for="orientador">Destino</label>
+                                <p-dropdown
+                                    id="orientador"
+                                    [options]="orientadoresOption"
+                                    [virtualScroll]="true"
+                                    [itemSize]="50"
+                                    [style]="{ width: '100%' }"
+                                    formControlName="orientador"
+                                    [filter]="true"
+                                >
+                                </p-dropdown>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-5">
+                            <label for="nomeprojeto"
+                                >Nome do Projeto:
+                            </label>
+                            <input
+                                type="text"
+                                id="nomeprojeto"
+                                class="form-control"
+                                formControlName="nomeprojeto"
+                            />
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-5">
+                        <label for="nome">Nome*</label>
+                        <input
+                            type="text"
+                            id="nome"
+                            class="form-control"
+                            formControlName="nome"
+                        />
+                    </div>
+                    <div class="p-col-5">
+                        <label for="email">Email* </label>
+                        <input
+                            type="text"
+                            id="email"
+                            class="form-control"
+                            formControlName="email"
+                        />
+                    </div>
+
+                    <div class="p-col-2">
+                        <label for="dataTerminoPrograma">Data de Término</label>
+                        <p-calendar
+                            id="dataTerminoPrograma"
+                            formControlName="dataTerminoPrograma"
+                            [locale]="ptCalendar"
+                            dateFormat="dd/mm/yy"
+                        ></p-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-4">
+                        <label for="tipoPessoa">Tipo de Pessoa* </label>
+                        <p-dropdown
+                            id="tipoPessoa"
+                            [options]="tipoPessoaOption"
+                            placeholder="Selecione..."
+                            scrollHeight="auto"
+                            [style]="{ width: '100%' }"
+                            (onChange)="setTipoPessoa($event)"
+                            formControlName="tipoPessoa"
+                        >
+                        </p-dropdown>
+                    </div>
+
+                    <div class="p-col-4">
+                        <label for="documento">Documento* </label>
+                        <input
+                            type="text"
+                            id="documento"
+                            class="form-control"
+                            formControlName="documento"
+                        />
+                    </div>
+
+                    <div *ngIf="ehJuridica" class="p-col-4">
+                        <label for="inscricaoEstadual">Inscrição Estadual </label>
+                        <input
+                            type="text"
+                            id="inscricaoEstadual"
+                            class="form-control"
+                            formControlName="inscricaoEstadual"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-2">
+                        <label for="cep">CEP* </label>
+                        <p-inputMask
+                            id="cep"
+                            styleClass="form-control"
+                            formControlName="cep"
+                            mask="99999-999"
+                            unmask="true"
+                        ></p-inputMask>
+                    </div>
+
+                    <div class="p-col-8">
+                        <label for="endereco">Endereço* </label>
+                        <input
+                            type="text"
+                            id="endereco"
+                            class="form-control"
+                            formControlName="endereco"
+                        />
+                    </div>
+
+                    <div class="p-col-2">
+                        <label for="numero">Número* </label>
+                        <input
+                            type="number"
+                            id="numero"
+                            class="form-control"
+                            formControlName="numero"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-3">
+                        <label for="endereco">Bairro* </label>
+                        <input
+                            type="text"
+                            id="bairro"
+                            class="form-control"
+                            formControlName="bairro"
+                        />
+                    </div>
+
+                    <div class="p-col-9">
+                        <label for="complemento">Complemento </label>
+                        <input
+                            type="text"
+                            id="complemento"
+                            class="form-control"
+                            formControlName="complemento"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="p-col-4">
+                        <label for="cidade">Cidade* </label>
+                        <p-dropdown
+                            id="cidade"
+                            [options]="cidadesOption"
+                            [virtualScroll]="true"
+                            [itemSize]="50"
+                            [style]="{ width: '100%' }"
+                            formControlName="cidade"
+                            [filter]="true"
+                        >
+                        </p-dropdown>
+                    </div>
+
+                    <div class="p-col-4">
+                        <label for="telefone">Telefone* </label>
+                        <input
+                            type="number"
+                            id="telefone"
+                            class="form-control"
+                            formControlName="telefone"
+                        />
+                    </div>
+
+                    <div class="p-col-4">
+                        <label for="celular">Celular* </label>
+                        <input
+                            type="number"
+                            id="celular"
+                            class="form-control"
+                            formControlName="celular"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-danger" (click)="delete()">Recusar</button>
+            <button type="button" class="btn btn-primary" (click)="save()">Aprovar</button>
+        </div>
+    </form>
+</div>

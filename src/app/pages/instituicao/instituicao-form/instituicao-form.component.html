@@ -1,0 +1,37 @@
+<h1>Cadastro de Instituição</h1>
+<div class="container">
+    <form [formGroup]="form" class="form-group">
+        <div class="p-grid">
+            <div class="p-col-12">
+                <label for="nome">Nome: </label>
+                <input type="text" id="nome" class="form-control" formControlName="nome">
+                <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty ||
+                form.get('nome').touched)" class="alert alert-danger">
+                O Nome é Obrigatório
+            </div>
+            </div>
+
+
+            <div class="p-col-6">
+                <label for="tipo">Tipo: </label>
+                <p-dropdown id="tipo" [options]='opcoesTipo' [style]="{'width':'100%'}"
+                            formControlName="tipoInstituicao">
+                </p-dropdown>
+            </div>
+            <div class="p-col-6">
+                <label for="cidade">Cidade: </label>
+                <p-dropdown id="cidade" [options]="cidadesOption" [virtualScroll]="true" [itemSize]="50"
+                            [style]="{'width':'100%'}"
+                    formControlName="cidade" [filter]="true">
+                </p-dropdown>
+            </div>
+        </div>
+    </form>
+    <!--    fim class row-->
+    <div class="row">
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">Salvar
+        </button>
+    </div>
+</div>

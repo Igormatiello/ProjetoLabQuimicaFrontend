@@ -1,0 +1,116 @@
+<button id="btnTOP" [useExistingCss]="true" printSectionId="print-section" ngxPrint class="btn btn-primary mb-3">Imprimir</button>
+
+<div id="print-section">
+    <table class="table">
+
+        <thead>
+            <tr>
+                <h4 align="center">FORMULÁRIO CENTRAL DE ANÁLISES</h4>
+            </tr>
+            <tr class="p-grid p-col-12">
+                <td class="p-col-6">
+                    <b>Solicitação N°:</b> <span>{{formulario.id || ''}}</span>
+                </td>
+                <td class="p-col-6">
+                    <b>Data:</b> <span>{{formulario.dataSolicitacao || ''}}</span>
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="p-grid p-col-12">
+                <td class="p-col-12">
+                    <b>Nome:</b> <span>{{formulario.pessoa ? formulario.pessoa.nome : ''}}</span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-6">
+                    <b>E-mail:</b> <span> {{formulario.pessoa ? formulario.pessoa.email : '' }} </span>
+                </td>
+                <td class="p-col-6">
+                    <b>Telefone: </b> <span>{{formulario.pessoa ? formulario.pessoa.telefone : ''}} </span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-12">
+                    <b>Nome Orientador:</b> <span>{{formulario.participacaoPrograma ?
+                            formulario.participacaoPrograma.orientador.pessoa.nome : ''}}</span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-6">
+                    <b>E-mail:</b> <span> {{formulario.participacaoPrograma ?
+                            formulario.participacaoPrograma.orientador.pessoa.email : ''}} </span>
+                </td>
+                <td class="p-col-6">
+                    <b>Telefone: </b> <span>{{formulario.participacaoPrograma ?
+                            formulario.participacaoPrograma.orientador.pessoa.telefone : ''}} </span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-6">
+                    <b>Área/Departamento/Campus:</b> <span> {{formulario.participacaoPrograma.orientador ? formulario.participacaoPrograma.orientador.instituicao.nome : ''}} </span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-2">
+                    <b>Natureza do Projeto: {{formulario.naturezaProjeto || ''}} </b>
+                </td>
+
+                <td class="p-col-10">
+                    <div>
+                        (&emsp;) Iniciação Científica ou Tecnológica (programas PIBIC/PIBIT)
+                    </div>
+                    <div>
+                        (&emsp;) Trabalho de Conclusão de Curso (TCC)
+                    </div>
+                    <div>
+                        (&emsp;) Mestrado- Sigla do Programa/Instituição: _________________
+                    </div>
+                    <div>
+                        (&emsp;) Doutorado – Sigla do Programa/Instituição: _______________
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12">
+                <td class="p-col-12">
+                    <b>Serviço requerido:</b> <span>{{formulario.nomeServico || ''}}</span>
+                </td>
+            </tr>
+
+            <tr class="p-grid p-col-12 metodologia">
+                <td class="p-col-12">
+                    <div id="metodologia"></div>
+                </td>
+            </tr>        
+            <tr class="p-grid p-col-12">
+                <td class="p-col-4">
+                    <b>Responsável pela análise: </b>
+                </td>
+                <td class="p-col-8">
+                    <div>
+                        <b>Nome: </b>
+                    </div>
+                    <br>
+                    <div>
+                        <b>Habilitado pela Central de Análises:</b>
+                        <span>
+                            (&emsp;) Sim
+                            (&emsp;) Não
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+        <div class="p-col-12" id="observacao"></div>
+    </table>
+    
+</div>
+<!-- FIM DIV PRINT SECTION -->

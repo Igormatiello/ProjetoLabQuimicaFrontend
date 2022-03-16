@@ -1,0 +1,302 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Pessoas</h1>
+    <form [formGroup]="form" class="form-group w-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-col-5">
+                    <label for="nome">Nome*</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        class="form-control"
+                        formControlName="nome"
+                    />
+                    <div
+                        *ngIf="
+                            form.get('nome').invalid &&
+                            (form.get('nome').dirty || form.get('nome').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Nome é Obrigatório
+                    </div>
+                </div>
+                <div class="p-col-5">
+                    <label for="email">Email* </label>
+                    <input
+                        type="text"
+                        id="email"
+                        class="form-control"
+                        formControlName="email"
+                    />
+                    <div
+                        *ngIf="
+                            form.get('email').invalid &&
+                            (form.get('email').dirty ||
+                                form.get('email').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Email é Obrigatório
+                    </div>
+                    <div *ngIf="form.get('email').hasError('email')">
+                        Não é um formato de email válido.
+                    </div>
+                </div>
+
+                <div class="p-col-2">
+                    <label for="ativo">Ativo* </label>
+                    <p-dropdown
+                        id="ativo"
+                        [options]="ativoOption"
+                        scrollHeight="auto"
+                        placeholder="Selecione..."
+                        [style]="{ width: '100%' }"
+                        formControlName="ehAtivo"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div [ngClass]="ehJuridica ? 'p-col-4' : 'p-col-6'">
+                    <label for="tipoPessoa">Tipo de Pessoa* </label>
+                    <p-dropdown
+                        id="tipoPessoa"
+                        [options]="tipoPessoaOption"
+                        placeholder="Selecione..."
+                        scrollHeight="auto"
+                        [style]="{ width: '100%' }"
+                        (onChange)="setTipoPessoa($event)"
+                        formControlName="tipoPessoa"
+                    >
+                    </p-dropdown>
+                </div>
+
+                <div *ngIf="!ehJuridica" [ngClass]="ehJuridica ? 'p-col-4' : 'p-col-6'">
+                    <label for="documento">CPF* </label>
+                    <p-inputMask
+                        id="documento"
+                        styleClass="form-control"
+                        formControlName="documento"
+                        mask="999.999.999-99"
+                        unmask="true"
+                    ></p-inputMask>
+                    <div
+                        *ngIf="
+                            form.get('documento').invalid &&
+                            (form.get('documento').dirty ||
+                                form.get('documento').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O CPF é Obrigatório
+                    </div>
+                </div>
+
+                <div *ngIf="ehJuridica" class="p-col-4">
+                    <label for="documento">CNPJ* </label>
+                    <p-inputMask
+                        id="documento"
+                        styleClass="form-control"
+                        formControlName="documento"
+                        mask="99.999.999/9999-99"
+                        unmask="true"
+                    ></p-inputMask>
+                    <div
+                        *ngIf="
+                            form.get('documento').invalid &&
+                            (form.get('documento').dirty ||
+                                form.get('documento').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O CNPJ é Obrigatório
+                    </div>
+                </div>
+
+                <div *ngIf="ehJuridica" class="p-col-4">
+                    <label for="inscricaoEstadual">Inscrição Estadual </label>
+                    <input
+                        type="text"
+                        id="inscricaoEstadual"
+                        class="form-control"
+                        formControlName="inscricaoEstadual"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-col-2">
+                    <label for="cep">CEP* </label>
+                    <p-inputMask
+                        id="cep"
+                        styleClass="form-control"
+                        formControlName="cep"
+                        mask="99999-999"
+                        unmask="true"
+                    ></p-inputMask>
+                </div>
+                <div
+                    *ngIf="
+                        form.get('cep').invalid &&
+                        (form.get('cep').dirty || form.get('cep').touched)
+                    "
+                    class="alert alert-danger"
+                >
+                    O CEP é Obrigatório
+                </div>
+
+                <div class="p-col-4">
+                    <label for="endereco">Endereço* </label>
+                    <input
+                        type="text"
+                        id="endereco"
+                        class="form-control"
+                        formControlName="endereco"
+                    />
+                </div>
+                <div
+                    *ngIf="
+                        form.get('endereco').invalid &&
+                        (form.get('endereco').dirty ||
+                            form.get('endereco').touched)
+                    "
+                    class="alert alert-danger"
+                >
+                    O Endereço é Obrigatório
+                </div>
+
+                <div class="p-col-3">
+                    <label for="endereco">Bairro* </label>
+                    <input
+                        type="text"
+                        id="bairro"
+                        class="form-control"
+                        formControlName="bairro"
+                    />
+                    <div
+                        *ngIf="
+                            form.get('bairro').invalid &&
+                            (form.get('bairro').dirty ||
+                                form.get('bairro').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Bairro é Obrigatório
+                    </div>
+                </div>
+
+                <div class="p-col-3">
+                    <label for="numero">Número* </label>
+                    <input
+                        type="number"
+                        id="numero"
+                        class="form-control"
+                        formControlName="numero"
+                    />
+                    <div
+                        *ngIf="
+                            form.get('numero').invalid &&
+                            (form.get('numero').dirty ||
+                                form.get('numero').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Número é Obrigatório
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-12">
+            <label for="complemento">Complemento </label>
+            <input
+                type="text"
+                id="complemento"
+                class="form-control"
+                formControlName="complemento"
+            />
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-col-4">
+                    <label for="cep">Telefone* </label>
+                    <p-inputMask
+                        id="telefone"
+                        styleClass="form-control"
+                        formControlName="telefone"
+                        mask="(99)9999-9999"
+                        unmask="true"
+                    ></p-inputMask>
+                    <div
+                        *ngIf="
+                            form.get('telefone').invalid &&
+                            (form.get('telefone').dirty ||
+                                form.get('telefone').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Telefone é Obrigatório
+                    </div>
+                </div>
+
+                <div class="p-col-4">
+                    <label for="celular">Celular* </label>
+                    <p-inputMask
+                        id="celular"
+                        styleClass="form-control"
+                        formControlName="celular"
+                        mask="(99)99999-999"
+                        unmask="true"
+                    ></p-inputMask>
+                    <div
+                        *ngIf="
+                            form.get('celular').invalid &&
+                            (form.get('celular').dirty ||
+                                form.get('celular').touched)
+                        "
+                        class="alert alert-danger"
+                    >
+                        O Celular é Obrigatório
+                    </div>
+                </div>
+
+                <div class="p-col-4">
+                    <label for="cidade">Cidade* </label>
+                    <p-dropdown
+                        id="cidade"
+                        [options]="cidadesOption"
+                        [virtualScroll]="true"
+                        [itemSize]="50"
+                        [style]="{ width: '100%' }"
+                        formControlName="cidade"
+                        [filter]="true"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="container-fluid">
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="cancel()">
+                Cancelar
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="!form.valid"
+                (click)="save()"
+            >
+                Salvar
+            </button>
+        </div>
+    </div>
+</div>

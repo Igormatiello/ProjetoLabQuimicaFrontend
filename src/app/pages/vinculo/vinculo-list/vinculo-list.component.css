@@ -1,0 +1,42 @@
+body {
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #FFFFFF;
+    color: #007bff;
+}
+
+.table-scroll {
+    width: 100%;
+    overflow: scroll;
+    table-layout: fixed;
+}
+
+table,
+td,
+th {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+
+.flex-row {
+    flex-direction: row;
+    display: flex;
+    width: 100%
+}
+
+.flex-input {
+    display: flex;
+    justify-content:  flex-end;
+}
+
+.mt-16 {
+    margin-top: 16px
+}

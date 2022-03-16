@@ -1,0 +1,22 @@
+ tr{
+    border: 1px black solid;
+    border-bottom: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+tbody{
+    border-bottom: 1px black solid;
+}
+
+td{
+    border: none;
+}
+
+tr td:nth-child(2n){
+    border-left: 1px black solid;
+}
+
+span{
+    margin: 0 5px;
+}

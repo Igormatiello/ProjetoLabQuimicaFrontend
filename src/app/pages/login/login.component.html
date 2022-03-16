@@ -1,0 +1,102 @@
+<div id="mydiv">
+    <p-card>
+        <div
+            class="d-flex flex-row"
+            style="flex: 1; justify-content: space-around; min-height: 70vh;"
+        >
+            <div style="padding: 81px 20px 0px 20px;">
+                <form [formGroup]="form">
+                    <h3 style="font-weight: 600;" class="font-primary">
+                        Login
+                    </h3>
+                    <div class="class row">
+                        <div class="ui-g-12 ui-md-12">
+                            <div class="ui-inputgroup">
+                                <span
+                                    class="ui-inputgroup-addon"
+                                    style="height: 35px;"
+                                >
+                                    <i
+                                        class="pi pi-user"
+                                        style="line-height: 1.25;"
+                                    ></i
+                                ></span>
+                                <input
+                                    id="username"
+                                    class="form-control"
+                                    formControlName="username"
+                                    type="text"
+                                    pInputText
+                                    placeholder="E-mail"
+                                    style="width: 100%; "
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="class row">
+                        <div class="ui-g-12 ui-md-12">
+                            <div class="ui-inputgroup">
+                                <span
+                                    class="ui-inputgroup-addon"
+                                    style="height: 35px;"
+                                    ><i
+                                        class="pi pi-lock"
+                                        style="line-height: 1.25;"
+                                    ></i
+                                ></span>
+                                <input
+                                    id="password"
+                                    class="form-control"
+                                    formControlName="password"
+                                    type="password"
+                                    pInputText
+                                    placeholder="Senha"
+                                    style="width: 100%;"
+                                    (keydown.enter)="enterPressionado($event)"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="class row">
+                    <div class="ui-g-12 ui-md-12">
+                        <a
+                            (click)="abrirEsqueciMinhaSenha()"
+                            style="font-size: 13px; margin-left: 6px;"
+                            >Esqueci minha senha</a
+                        >
+                    </div>
+                </div>
+
+                <div class="class row">
+                    <button
+                        pButton
+                        class="ui-button-rounded float-right"
+                        label="Entrar"
+                        icon="pi pi-check"
+                        style="margin-left:.25em"
+                        (click)="login()"
+                    >
+                    </button>
+                </div>
+
+                <div class="class row">
+                    <div class="ui-g-12 ui-md-12">
+                        <label style="font-size: 13px;"
+                            >Não é cadastrado ainda?</label
+                        >
+                        <a
+                            (click)="abrirCadastro()"
+                            class="font-primary"
+                            style="font-size: 13px; margin-left: 10px; cursor: pointer;"
+                            >Cadastre-se aqui</a
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="bg-login"></div>
+        </div>
+    </p-card>
+</div>
+<p-toast></p-toast>

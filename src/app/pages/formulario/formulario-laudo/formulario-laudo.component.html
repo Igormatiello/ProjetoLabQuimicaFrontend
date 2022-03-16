@@ -1,0 +1,61 @@
+<div class="container">
+    <label><h1>Finalizar Análise</h1></label>
+    <form [formGroup]="form" class="form-group w-100">
+            <div class="row">
+                <div class="p-col-12">
+                    <div class="row pb-2"></div>
+                        <div class="col-12">
+                            <label><h2>Laudo</h2></label>
+                            <ckeditor [editor]="Editor" formControlName="laudo"></ckeditor>
+                        </div>
+              
+                </div>
+            </div>
+            <div class="row">
+                <div class="p-col-12">
+                    <div class="row pb-2"></div>
+                        <div class="col-12">
+                            <p-fileUpload name="arquivos" url="{{urlApi}}/formulario/upload/{{formularioEdit.id}}" multiple="multiple" (onUpload)="onUpload($event)" accept=".jpg" maxFileSize="1000000"></p-fileUpload>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row pb-2">
+                <div class="col-12">
+                    
+                </div>
+                </div>
+            </div> 
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <h5>A análise já foi paga?</h5>
+                        <div class="p-field-radiobutton">
+                            <p-radioButton formControlName="analise" value="true" [(ngModel)]="analise" inputId="analise1"></p-radioButton>
+                            <label for="analise1">Sim</label>
+                        </div>
+                        <div class="p-field-radiobutton">
+                            <p-radioButton formControlName="analise" value="false" [(ngModel)]="analise" inputId="analise2"></p-radioButton>
+                            <label for="analise2">Não</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="row">
+                <div class="col-6">
+                    <button pButton type="button" label="Voltar" class="ui-button-rounded float-left"
+                        (click)="voltar()"></button>
+                </div>
+                <div class="col-6">
+                    <button pButton type="submit" label="Finalizar"
+                        class="ui-button-rounded float-right" (click)="salvar()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

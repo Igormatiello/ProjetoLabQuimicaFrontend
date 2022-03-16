@@ -1,0 +1,40 @@
+<div class="container">
+    <h1 class="d-flex mb-5 align-center">Desvincular uma pessoa de suas instituições</h1>
+<div class="container mb-5">
+    <p-dropdown id="pessoa"
+                (onChange)="buscaInstituicoes()"
+                [options]="pessoasOption"
+                [virtualScroll]="true"
+                [itemSize]="50"
+                [placeholder]="'Escolha uma pessoa'"
+                [style]="{'width':'100%'}"
+                [(ngModel)]="pessoaSelecionada"
+                [filter]="true">
+    </p-dropdown>
+</div>
+<div class="container">
+    <p-table [value]="pessoaInstituicoes" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Instituição</th>
+                <th>Tipo</th>
+                <th>Cidade</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pessoaInstituicao>
+            <tr>
+                <td>{{pessoaInstituicao.id}}</td>
+                <td>{{pessoaInstituicao.instituicao.nome}}</td>
+                <td>{{pessoaInstituicao.instituicao.tipoInstituicao}}</td>
+                <td>{{pessoaInstituicao.instituicao.cidade.nome}} - {{pessoaInstituicao.instituicao.cidade.uf}} </td>
+                <td align="center">
+                    <a (click)="delete(pessoaInstituicao.id)" class="btn btn-danger text-light">Desvincular</a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+

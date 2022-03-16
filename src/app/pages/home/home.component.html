@@ -1,0 +1,167 @@
+<div class="container-image w-100 bg-home" id="container-image" style="display: none"></div>
+
+<div class="container-fluid my-3" id="container-dashboard" style="display: none">
+
+    <div class="row m-0">
+        <div class="col-md-12 container-info mat-elevation-z5">
+            <div class="w-100 d-flex justify-content-center align-items-center">
+        <span class="font-weight-bolder text-center mr-2 font-size-18px">Dados dos dias {{getDateIni()}} a {{getDateFim()}} </span>
+                <button type="button"
+                        pTooltip="Filtrar"
+                        (click)="dialodFiltroData = true"
+                        class="btn">
+                    <i class="pi pi-filter font-size-18px"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-0">
+        <div class="d-flex w-100 justify-content-between container-body">
+            <div class="col-md-4 p-0 container-card mat-elevation-z5 border-secondary">
+                <div class="d-flex flex-row text-center body-card">
+                    <i class="pi pi-clock text-secondary" style="width: 30%; font-size: 6em;"></i>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width: 70%">
+                        <h6 class="m-0">Total de Formulários em Espera</h6>
+                        <p class="content-card text-secondary m-0">{{indicadores?.indicadorCabecalho?.qtdeFormularioEmEspera}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 p-0 container-card mat-elevation-z5 border-primary">
+                <div class="d-flex flex-row text-center body-card">
+                    <i class="pi pi-file-o text-primary" style="width: 30%; font-size: 6em;"></i>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width: 70%">
+                        <h6 class="m-0">Total de Formulários em Análise</h6>
+                        <p class="content-card text-primary m-0">{{indicadores?.indicadorCabecalho?.qtdeFormularioEmAnalise}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 p-0 container-card mat-elevation-z5 border-success">
+                <div class="d-flex flex-row text-center body-card">
+                    <i class="pi pi-file text-success" style="width: 30%; font-size: 6em;"></i>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width: 70%">
+                        <h6 class="m-0">Total de Formulários Encerrados</h6>
+                        <p class="content-card text-success m-0">{{indicadores?.indicadorCabecalho?.qtdeFormularioEncerrado}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-0 mt-4">
+        <div class="col-md-12 mat-elevation-z5 container-charts">
+            <h6 class="font-weight-bolder text-center">Total de Formulários Cadastrados por Dia</h6>
+            <div class="chartFormularioByDay" style="height: 450px"></div>
+        </div>
+    </div>
+
+    <div class="row m-0 mt-4 d-flex justify-content-between container-body">
+        <div class="col-md-6 mat-elevation-z5 container-charts container-chart-col-6">
+            <h6 class="font-weight-bolder text-center">Qtde de Solicitações de Cadastro por Categoria</h6>
+            <div class="chartPieSolicitacao" style="height: 450px"></div>
+        </div>
+
+        <div class="col-md-6 mat-elevation-z5">
+            <h6 class="font-weight-bolder text-center mt-4">Solicitações de Cadastro Pendente</h6>
+            <mat-table *ngIf="indicadores?.solicitacaoCadastrosPendentes?.length > 0" [dataSource]="indicadores.solicitacaoCadastrosPendentes">
+                <ng-container matColumnDef="nome">
+                    <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+                    <mat-cell *matCellDef="let solicitacao">{{solicitacao.nome}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoPessoa">
+                    <mat-header-cell *matHeaderCellDef>Tipo de Pessoa</mat-header-cell>
+                    <mat-cell *matCellDef="let solicitacao">{{solicitacao.tipoPessoa}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let solicitacao">
+                        <button class="rounded mr-2 text-dark"
+                                type="button"
+                                mat-button
+                                pTooltip="Ir para solicitação de cadastro"
+                                [routerLink]="['/solicitacao-cadastro', solicitacao.id]"
+                                tooltipPosition="bottom">
+                            <i class="pi pi-external-link"></i>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div *ngIf="indicadores?.solicitacaoCadastrosPendentes?.length == 0" style="height: 80%"
+                 class="d-flex justify-content-center align-items-center">
+                <span>Nenhuma solicitação pendente para avaliação :)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Filtro"
+          [(visible)]="dialodFiltroData"
+          [style]="{minWidth: '400px'}"
+          [modal]="true"
+          [baseZIndex]="10000">
+
+    <form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="dtIni">Data Inicial</label>
+                    <p-calendar name="dtIni"
+                                id="dtIni"
+                                appendTo="body"
+                                dataType="string"
+                                dateFormat="dd/mm/yy"
+                                [(ngModel)]="dtIniFiltro"
+                                [locale]="localePt"
+                                [style]="{width: '100%'}"
+                                inputStyleClass="form-control">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="dtFim">Data Final</label>
+                    <p-calendar name="dtFim"
+                                id="dtFim"
+                                dataType="string"
+                                appendTo="body"
+                                dateFormat="dd/mm/yy"
+                                [(ngModel)]="dtFimFiltro"
+                                [locale]="localePt"
+                                [style]="{width: '100%'}"
+                                inputStyleClass="form-control">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button type="button"
+                            class="mr-2 text-uppercase"
+                            (click)="dialodFiltroData = false"
+                            mat-raised-button>
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            color="primary"
+                            class="text-uppercase"
+                            (click)="filtrar()"
+                            [disabled]="disableBtnFiltrar()"
+                            mat-raised-button>
+                        Filtrar
+                    </button>
+                </div>
+            </div>
+        </p-footer>
+    </form>
+</p-dialog>

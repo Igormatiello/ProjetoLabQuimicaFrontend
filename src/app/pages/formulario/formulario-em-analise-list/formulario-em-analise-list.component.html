@@ -1,0 +1,54 @@
+<div class="container">
+    <h1 class="d-flex">Formulários Em Análise</h1>
+    <div class="text-right mb-3">
+        <input type="text" class="ui-md-12" pInputText placeholder="Filtre pelo que desejar" 
+        (keyup)="dv.filterGlobal($event.target.value ,'contains')">
+    </div>
+    <p-table
+        #dv
+        [value]="formularios"
+        [paginator]="true"
+        [columns]="cols" 
+        selectionMode="single"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 15, 20]"
+    >
+        <ng-template pTemplate="header">
+            <tr class="text-center">
+                <th class="p-col-2">Serviços</th>
+                <th class="p-col-2">Solicitante</th>
+                <th class="p-col-2">Instituição</th>
+                <th class="p-col-1">Programa de Ensino</th>
+                <th class="p-col-1">Data de Solicitação</th>
+                <th class="p-col-2">Finalizar Análise</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-formulario>
+            <tr>
+                <td>{{ formulario.nomeServico }}</td>
+                <td>{{ formulario.pessoa.nome }}</td>
+                <td>
+                    {{
+                        formulario.participacaoPrograma?.orientador.instituicao
+                            .nome
+                    }}
+                </td>
+                <td>
+                    {{ formulario.participacaoPrograma?.programaEnsino.sigla }}
+                </td>
+                <td> {{ formulario.dataSolicitacao}}</td>
+                <td class="text-center">
+                    <a
+                        [routerLink]="['/report-formulario', formulario.id]"
+                        class="btn btn-primary mr-2 pi pi-print"
+                    ></a>
+                    <a
+                        [routerLink]="['/formulario-laudo',formulario.id]"                       
+                        title="Finalizar Análise"
+                        class="btn btn-success mr-2 pi pi-check text-white"
+                    ></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

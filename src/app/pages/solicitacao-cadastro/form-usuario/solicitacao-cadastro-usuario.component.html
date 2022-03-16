@@ -1,0 +1,463 @@
+<div id="center-div">
+    <div class="container">
+        <div class="container" *ngIf="!confirmado" class="container-initial">
+            <span class="title-question">Como deseja cadastrar-se?</span>
+            <p-selectButton
+                [options]="itemsSelectInicial"
+                [(ngModel)]="tipoSelecionado"
+                class="selectButtonEnter"
+            ></p-selectButton>
+
+            <button
+                pButton
+                type="button"
+                label="Avançar"
+                class="ui-button-rounded"
+                (click)="avancar()"
+                [disabled]="tipoSelecionado === undefined"
+            ></button>
+
+            <button
+                pButton
+                type="button"
+                label="Voltar"
+                class="ui-button-rounded ui-button-info"
+                (click)="voltarLogin()"
+            ></button>
+
+        </div>
+
+        <div class="container" *ngIf="confirmado">
+            <p-steps
+                [model]="itemsStep"
+                [(activeIndex)]="activeIndex"
+                [readonly]="true"
+                styleClass="steps-container"
+            ></p-steps>
+
+            <p-card>
+                <form [formGroup]="form">
+                    <div class="container padding-16" *ngIf="activeIndex === 0">
+                        <p-header>
+                            <h3 class="text-center font-primary">
+                                Dados iniciais
+                            </h3>
+                        </p-header>
+
+                        <div class="row centered-line">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="nome">Nome</label>
+                                            <span>*</span>
+                                            <input
+                                                type="text"
+                                                id="nome"
+                                                class="form-control"
+                                                formControlName="nome"
+                                            />
+                                            <div
+                                                *ngIf="form.get('nome').invalid && (form.get('nome').dirty || form.get('nome').touched)">
+                                                <span class="text-danger">O campo nome é obrigatório</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div
+                                                    [ngClass]="[
+                                                        'd-flex',
+                                                        'flex-column',
+                                                        tipoSelecionado === 2
+                                                            ? 'col-6'
+                                                            : 'col-12'
+                                                    ]"
+                                                >
+                                                    <label for="documento">{{
+                                                        tipoSelecionado === 2
+                                                            ? "CNPJ"
+                                                            : "CPF"
+                                                        }}<span>*</span></label>
+                                                    <p-inputMask
+                                                        *ngIf="
+                                                            tipoSelecionado !==
+                                                            2
+                                                        "
+                                                        id="documento"
+                                                        styleClass="form-control"
+                                                        formControlName="documento"
+                                                        mask="999.999.999-99"
+                                                        unmask="true"
+                                                    ></p-inputMask>
+                                                    <div
+                                                        *ngIf=" tipoSelecionado !== 2 &&
+                                                            form.get('documento').invalid && (form.get('documento').dirty || form.get('documento').touched)">
+                                                        <span class="text-danger">O campo CPF é obrigatório</span>
+                                                    </div>
+                                                    <p-inputMask
+                                                        *ngIf="
+                                                            tipoSelecionado ===
+                                                            2
+                                                        "
+                                                        id="documento"
+                                                        styleClass="form-control"
+                                                        formControlName="documento"
+                                                        mask="99.999.999/9999-99"
+                                                        unmask="true"
+                                                    ></p-inputMask>
+                                                    <div
+                                                        *ngIf=" tipoSelecionado === 2 &&
+                                                            form.get('documento').invalid && (form.get('documento').dirty || form.get('documento').touched)"
+                                                    >
+                                                        <span class="text-danger">O campo CNPJ é obrigatório</span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="col-6 d-flex flex-column"
+                                                    *ngIf="
+                                                        tipoSelecionado === 2
+                                                    "
+                                                >
+                                                    <label
+                                                        for="inscricaoEstadual"
+                                                    >Inscrição estadual<span>*</span></label>
+                                                    <p-inputMask
+                                                        id="inscricaoEstadual"
+                                                        styleClass="form-control"
+                                                        formControlName="inscricaoEstadual"
+                                                        mask="999999999"
+                                                        unmask="true"
+                                                    ></p-inputMask>
+                                                    <div
+                                                        *ngIf="form.get('inscricaoEstadual').invalid && (form.get('inscricaoEstadual').dirty || form.get('inscricaoEstadual').touched)"
+                                                    >
+                                                        <span class="text-danger">O campo inscrição estadual é obrigatório</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="telefone">Telefone</label>
+                                            <span>*</span>
+                                            <p-inputMask
+                                                id="telefone"
+                                                styleClass="form-control"
+                                                formControlName="telefone"
+                                                mask="(99)99999-9999"
+                                                unmask="true"
+                                            ></p-inputMask>
+                                            <div
+                                                *ngIf="form.get('telefone').invalid && (form.get('telefone').dirty || form.get('telefone').touched)"
+                                            >
+                                                <span class="text-danger">O campo telefone é obrigatório</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label for="celular">Celular</label>
+                                            <span>*</span>
+                                            <p-inputMask
+                                                id="celular"
+                                                styleClass="form-control"
+                                                formControlName="celular"
+                                                mask="(99)99999-9999"
+                                                unmask="true"
+                                            ></p-inputMask>
+                                            <div
+                                                *ngIf="form.get('celular').invalid && (form.get('celular').dirty || form.get('celular').touched)"
+                                            >
+                                                <span class="text-danger">O campo celular é obrigatório</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="endereco">Endereço</label>
+                                            <span>*</span>
+                                            <input
+                                                type="text"
+                                                id="endereco"
+                                                class="form-control"
+                                                formControlName="endereco"
+                                            />
+                                            <div
+                                                *ngIf="form.get('endereco').invalid && (form.get('endereco').dirty || form.get('endereco').touched)"
+                                            >
+                                                <span class="text-danger">O campo endereço é obrigatório</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="bairro">Bairro</label>
+                                            <span>*</span>
+                                            <input
+                                                type="text"
+                                                id="bairro"
+                                                class="form-control"
+                                                formControlName="bairro"
+                                            />
+                                            <div
+                                                *ngIf="form.get('bairro').invalid && (form.get('bairro').dirty || form.get('bairro').touched)"
+                                            >
+                                                <span class="text-danger">O campo bairro é obrigatório</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label for="numero">Nº </label>
+                                            <span>*</span>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                id="numero"
+                                                class="form-control"
+                                                formControlName="numero"
+                                            />
+                                            <div
+                                                *ngIf="form.get('numero').invalid && (form.get('numero').dirty || form.get('numero').touched)"
+                                            >
+                                                <span class="text-danger">O campo número é obrigatório</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 ui-fluid">
+                                            <label for="cidade">Cidade </label>
+                                            <span>*</span>
+                                            <p-dropdown
+                                                [options]="cidadesOption"
+                                                [virtualScroll]="true"
+                                                placeholder="Selecione..."
+                                                [itemSize]="50"
+                                                formControlName="cidade"
+                                                [filter]="true"
+                                                [autoWidth]="false"
+                                            >
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="cep">CEP </label>
+                                            <span>*</span>
+                                            <p-inputMask
+                                                id="cep"
+                                                styleClass="form-control"
+                                                formControlName="cep"
+                                                mask="99999-999"
+                                                unmask="true"
+                                            ></p-inputMask>
+                                            <div
+                                                *ngIf="form.get('cep').invalid && (form.get('cep').dirty || form.get('cep').touched)"
+                                            >
+                                                <span class="text-danger">O campo CEP é obrigatório</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="container padding-16"
+                        *ngIf="tipoSelecionado !== 2 && activeIndex === 1"
+                    >
+                        <p-header>
+                            <h3 class="text-center font-primary-dark">
+                                Vínculo
+                            </h3>
+                        </p-header>
+
+                        <div class="row centered-line">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="col-lg-12 px-0">
+                                        <label for="nomeInstituicao">Instituicao de Ensino</label>
+                                        <span>*</span>
+                                        <input
+                                            type="text"
+                                            id="nomeInstituicao"
+                                            class="form-control"
+                                            formControlName="nomeInstituicao"
+                                        />
+                                        <div
+                                            *ngIf="form.get('nomeInstituicao').invalid && (form.get('nomeInstituicao').dirty || form.get('nomeInstituicao').touched)"
+                                        >
+                                            <span class="text-danger">O campo instituição de ensino é obrigatório</span>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-8 pl-0">
+                                                <label for="nomeProgramaEnsino">Nome do programa de ensino</label>
+                                                <span>*</span>
+                                                <input
+                                                    type="text"
+                                                    id="nomeProgramaEnsino"
+                                                    class="form-control"
+                                                    formControlName="nomeProgramaEnsino"
+                                                />
+                                                <div
+                                                    *ngIf="form.get('nomeProgramaEnsino').invalid && (form.get('nomeProgramaEnsino').dirty || form.get('nomeProgramaEnsino').touched)"
+                                                >
+                                                    <span
+                                                        class="text-danger">O campo programa de ensino é obrigatório</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-lg-4 form-group pr-0"
+                                            >
+                                                <label for="nomeInstituicao">Data de término</label>
+                                                <span>*</span>
+                                                <div class="w-100">
+                                                    <p-calendar
+                                                        id="dataTerminoProgramaEnsino"
+                                                        formControlName="dataTerminoProgramaEnsino"
+                                                        [locale]="ptCalendar"
+                                                        dateFormat="dd/mm/yy"
+                                                    ></p-calendar>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6 pl-0">
+                                                <label for="nomeprojeto"
+                                                    >Nome do Projeto:
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="nomeprojeto"
+                                                    class="form-control"
+                                                    formControlName="nomeprojeto"
+                                                />
+                                            </div>
+                                            <div
+                                                class="col-lg-6 px-0"
+                                                *ngIf="tipoSelecionado === 0"
+                                            >
+                                                <label for="cpfOrientador"
+                                                    >CPF do orientador
+                                                </label>
+                                                  <span>*</span>
+                                                <p-inputMask
+                                                    *ngIf="tipoSelecionado === 0"
+                                                    id="cpfOrientador"
+                                                    styleClass="form-control"
+                                                    formControlName="cpfOrientador"
+                                                    mask="999.999.999-99"
+                                                    unmask="true"
+                                                ></p-inputMask>
+                                            </div>
+                                             <div
+                                            *ngIf="form.get('cpfOrientador').invalid && (form.get('cpfOrientador').dirty || form.get('cpfOrientador').touched)"
+                                        >
+                                            <span class="text-danger">O CPF do orientador é obrigatório</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div
+                        class="container padding-16"
+                        *ngIf="
+                            activeIndex === 2 ||
+                            (activeIndex == 1 && itemsStep.length === 2)
+                        "
+                    >
+                        <p-header>
+                            <h3 class="text-center font-primary-dark">
+                                Dados de acesso
+                            </h3>
+                        </p-header>
+
+                        <div class="row centered-line">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="col-lg-12 px-0">
+                                        <label for="email">Email</label>
+                                        <span>*</span>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            class="form-control"
+                                            formControlName="email"
+                                        />
+                                        <div
+                                            *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
+                                        >
+                                            <span
+                                                *ngIf="form.get('email').hasError('required')"><span
+                                                class="text-danger">O email é obrigatório</span></span>
+                                            <span
+                                                *ngIf="form.get('email').hasError('email')"><span class="text-danger">Email inválido</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 px-0">
+                                        <label for="senha">Senha de acesso</label>
+                                        <span>*</span>
+                                        <input
+                                            type="password"
+                                            id="senha"
+                                            class="form-control"
+                                            formControlName="senha"
+                                        />
+                                    </div>
+                                    <div class="col-lg-12 px-0">
+                                        <label for="confirmacaoSenha">Confirmação da senha</label>
+                                        <span>*</span>
+                                        <input
+                                            type="password"
+                                            id="confirmacaoSenha"
+                                            class="form-control"
+                                            formControlName="confirmacaoSenha"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p-footer>
+                        <div class="row">
+                            <div class="col-6">
+                                <button
+                                    pButton
+                                    type="button"
+                                    label="Voltar"
+                                    class="ui-button-rounded float-left"
+                                    (click)="voltarPasso()"
+                                ></button>
+                            </div>
+                            <div class="col-6">
+                                <button
+                                    pButton
+                                    type="button"
+                                    label="Avançar"
+                                    class="ui-button-rounded float-right"
+                                    (click)="proximoPasso()"
+                                    *ngIf="itemsStep.length - 1 !== activeIndex"
+                                ></button>
+                                <button
+                                    pButton
+                                    type="submit"
+                                    label="Enviar solicitação de cadastro"
+                                    class="ui-button-rounded float-right"
+                                    (click)="salvar()"
+                                    [disabled]="!form.valid"
+                                    *ngIf="activeIndex === 2 || (itemsStep.length == 2 && activeIndex == 1)"
+                                ></button>
+                            </div>
+                        </div>
+                    </p-footer>
+                </form>
+            </p-card>
+        </div>
+    </div>
+</div>

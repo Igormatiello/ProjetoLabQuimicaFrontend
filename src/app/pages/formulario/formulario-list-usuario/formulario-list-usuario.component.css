@@ -1,0 +1,21 @@
+.aguardando_amostra {
+  color: #915700;
+}
+
+.amostra_recusada {
+  color: #c40000;
+}
+
+.aguardando_analise {
+  color: #ff8800;
+}
+
+.em_analise {
+  color: #404bad;
+}
+
+.finalizado {
+  color: #00ad00;
+}
+
+

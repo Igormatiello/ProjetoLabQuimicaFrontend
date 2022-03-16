@@ -1,0 +1,146 @@
+<div class="container">
+    <h3>Equipamento</h3>
+    <form [formGroup]='form' class='form-group'>
+        <div class='p-grid'>
+
+            <div class="p-col-10">
+                <label>Nome:</label>
+                <input pInputText type="text" class="form-control" formControlName='nome'>
+            </div>
+            <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty ||
+      form.get('nome').touched)" class="alert alert-danger">
+                O Nome é Obrigatório
+            </div>
+
+            <div class="p-col-2">
+                <label>Sigla:</label>
+                <input pInputText type="text" class="form-control" formControlName='sigla'>
+            </div>
+            <div class="alert alert-danger" *ngIf="form.get('sigla').hasError('maxlength')">
+                O tamanho máximo da sigla é de 2 caractares
+            </div>
+
+            <div class="p-grid p-col-12">
+                <div class="p-col-3 df">
+                    <label>Unidade Medida Interno:</label>
+                    <p-dropdown [options]='unidadesMedida' class="form-control" formControlName='unidadeMedidaInterno'
+                                class="w-100"></p-dropdown>
+                </div>
+
+                <div class="p-col-2">
+                    <label>Valor interno:</label>
+                    <input pInputText pKeyFilter="pnum" type="text" class="form-control" formControlName='valorInterno'>
+                </div>
+            </div>
+
+            <div class="p-grid p-col-12">
+                <div class="p-col-3 df">
+                    <label>Unidade Medida Externo:</label>
+                    <p-dropdown [options]='unidadesMedida' formControlName='unidadeMedidaExterno'></p-dropdown>
+                </div>
+
+
+                <div class="p-col-2">
+                    <label>Valor externo:</label>
+                    <input pInputText pKeyFilter="pnum" type="text" class="form-control" formControlName='valorExterno'>
+                </div>
+            </div>
+
+            <div class="p-grid p-col-12">
+                <div class="p-col-3 df">
+                    <label>Unidade Medida Padrão:</label>
+                    <p-dropdown [options]='unidadesMedida' formControlName='unidadeMedidaPadrao'></p-dropdown>
+                </div>
+
+                <div class="p-col-2">
+                    <label>Valor padrão:</label>
+                    <input pInputText pKeyFilter="pnum" type="text" class="form-control" formControlName='valorPadrao'>
+                </div>
+            </div>
+
+            <div class="container" *ngIf="equipIdEdit">
+                <div class="row">
+                    <div class="col-auto mr-auto">
+                        <h5 class="p-col-10">Serviços</h5>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-success mb-1" (click)="newEntity()">Novo
+                        </button>
+                    </div>
+
+                </div>
+                <p-table [value]="servicos" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-servico>
+                        <tr>
+                            <td>{{ servico.id }}</td>
+                            <td>{{ servico.descricao}}</td>
+                            <td align="center">
+                                <a (click)="editServico(servico)" class="btn btn-primary mr-2 pi pi-pencil"></a>
+                                <a (click)="deleteServico(servico.id)" class="btn btn-danger pi pi-trash"></a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+            <div class="p-col-12">
+                <label>Metodologia:</label>
+                <ckeditor [editor]="Editor" formControlName='metodologia'></ckeditor>
+                <div *ngIf="form.get('metodologia').invalid && (form.get('metodologia').dirty ||
+        form.get('metodologia').touched)" class="alert alert-danger">
+                    A Metodologia é Obrigatória
+                </div>
+            </div>
+
+            <div class="p-col-12">
+                <label>Laudo padrão:</label>
+                <ckeditor
+                    [editor]="Editor"
+                    formControlName="laudoPadrao"
+                ></ckeditor>
+            </div>
+
+            <div class="p-col-12">
+                <label>Observações fixas:</label>
+                <ckeditor
+                    [editor]="Editor"
+                    formControlName="observacoesFixas"
+                ></ckeditor>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="cancel()">Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">Salvar
+            </button>
+        </div>
+
+    </form>
+
+    <p-dialog [(visible)]="showDialog" modal="modal"
+              [responsive]="true" [width]="500">
+        <form [formGroup]='formModal' class='form-group'>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" class="form-control" class="form-control"
+                               formControlName='descricao'>
+                    </div>
+                </div>
+            </div>
+            <p-footer>
+                <button type="button" class="btn btn-default" (click)="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="saveServico()">Salvar</button>
+            </p-footer>
+        </form>
+    </p-dialog>
+</div>

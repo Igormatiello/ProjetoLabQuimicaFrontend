@@ -1,0 +1,28 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Pessoas</h1>
+
+    <p-table class="table-scroll" [columns]="cols" [value]="pessoas" [paginator]="true" [rows]="5"
+             [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pessoa let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{pessoa[col.field]}}
+                </td>
+                <td align="center">
+                    <a [routerLink]="['/pessoa',pessoa.id]" class="btn btn-primary mr-2 pi pi-pencil"></a>
+                    <a (click)="delete(pessoa.id)" class="btn btn-danger pi pi-trash"></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button class="btn btn-success" style="margin-top: 16px;" (click)="newEntity()">Novo</button>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="d-flex font-gray">Cadastro de Cidades</h1>
+
+    <p-table [value]="cidades" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>UF</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cidade>
+            <tr>
+                <td>{{ cidade.id }}</td>
+                <td>{{ cidade.nome }}</td>
+                <td>{{ cidade.uf }}</td>
+                <td align="center">
+                    <a [routerLink]="['/cidade',cidade.id]" class="btn btn-primary mr-2 pi pi-pencil"  ></a>
+                    <a (click)="delete(cidade.id)" class="btn btn-danger pi pi-trash"></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button class="btn btn-success mt-4" (click)="newEntity()">Novo</button>
+</div>

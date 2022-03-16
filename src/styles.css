@@ -1,0 +1,231 @@
+:root {
+    --main: #4489f1;
+    --main-dark: #6c63ff;
+}
+
+.font-primary {
+    color: var(--main) !important;
+}
+
+.font-primary-dark {
+    color: var(--main-dark) !important;
+}
+
+.centered-line {
+    width: 90%;
+    margin: auto auto;
+}
+
+.ui-dropdown .ui-dropdown-panel {
+    min-width: 100%;
+    width: max-content;
+}
+
+.btn-danger.pi-trash:not(:hover) {
+    color: #fff !important;
+}
+
+.btn {
+    padding: 4px 15px;
+    border-radius: 20px;
+    transition: all 150ms linear;
+}
+
+.ui-button-rounded {
+    transition: all 150ms linear;
+}
+
+.btn:hover,
+.ui-button-rounded:hover {
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.btn:disabled {
+    border: 1px solid #bababa;
+    background-color: #bababa;
+}
+
+.btn:disabled:hover {
+    color: #ffffff !important;
+    transform: scale(1);
+    font-weight: normal;
+    cursor: not-allowed;
+}
+
+.btn-default:hover {
+    transform: scale(1);
+}
+
+.btn-danger:hover {
+    color: #dc3545 !important;
+}
+
+.btn-primary:hover {
+    color: var(--main) !important;
+}
+
+.btn-secundary {
+    background: var(--main-dark) !important;
+    border-color: var(--main-dark) !important;
+}
+
+.btn-secundary:hover {
+    color: var(--main-dark) !important;
+}
+
+.btn-success:hover {
+    color: #1e7e34 !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    outline: none !important;
+    border: #888888e2 solid 1px !important;
+    border-radius: 3px;
+}
+
+span.ui-calendar {
+    width: 100%;
+}
+
+span.ui-calendar > input {
+    width: 100%;
+}
+
+.navbar {
+    padding: 5px 10px;
+    border-bottom: 2px solid var(--main);
+    padding-top: 10px;
+}
+
+.ui-panelmenu-header-link,
+.ui-menuitem .ui-menuitem-link,
+.ui-menuitem .ui-menuitem-link *,
+.ui-panelmenu-header.ui-state-active > a,
+.ui-panelmenu-header-link.ng-tns-c7-1.ng-star-inserted:focus {
+    background: #fff !important;
+    background-color: #fff !important;
+    border-bottom-color: #e2e2e2e2;
+    border-top-color: #fff;
+    outline: none;
+    transition: all 200ms linear;
+}
+
+.ui-panelmenu-header-link,
+.ui-panelmenu-header-link:hover {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.ui-panelmenu-header-link.ng-tns-c7-1.ng-star-inserted:hover,
+.ui-panelmenu-header-link.ng-tns-c7-1.ng-star-inserted:hover span,
+body .ui-panelmenu .ui-panelmenu-header.ui-state-active *,
+.ui-panelmenu-header-link:hover,
+.ui-panelmenu-header-link:hover *,
+.ui-menuitem-link:hover * {
+    color: var(--main) !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1.05em;
+    transition: all 200ms linear;
+}
+
+.ui-panelmenu-header-link.ng-tns-c7-1.ng-star-inserted:hover {
+    border-bottom: var(--main) solid 3px !important;
+}
+
+.ui-steps.steps-container ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.selectButtonEnter .ui-button {
+    background: #ffffff !important;
+    height: 125px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0 22px;
+    align-self: center;
+    padding: 16px;
+    box-shadow: -1px 3px 16px 0px rgba(2, 0, 0, 0.35);
+    border: solid !important;
+    border-width: 1px !important;
+    border-color: var(--main) !important;
+    border-radius: 30px !important;
+    transition: all 200ms linear;
+}
+
+.selectButtonEnter .ui-selectbutton {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.selectButtonEnter .ui-selectbutton .ui-button.ui-state-active {
+    background-color: #007ad9 !important;
+}
+
+.selectButtonEnter .ui-selectbutton .ui-button.ui-state-active * {
+    color: #fff !important;
+}
+
+.selectButtonEnter .ui-button span > span {
+    width: 100%;
+}
+
+.formulario-form-usuario-main .selectButtonEnter .ui-button {
+    min-height: 50px !important;
+    height: 100% !important;
+    width: 200px;
+}
+
+.formulario-form-usuario-main
+.selectButtonEnter
+.ui-button.ui-button-text-only
+.ui-button-text {
+    font-size: 0.8em;
+    line-break: normal;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+    color: #838383;
+}
+
+.formulario-form-usuario-main
+.selectButtonEnter
+.ui-button.ui-state-active
+.ui-butto-text {
+    color: #fff;
+}
+
+form .ui-dropdown {
+    width: 100%;
+}
+
+form .ui-dropdown-label.ui-inputtext {
+    margin-top: 1px !important;
+}
+
+.ui-fieldset-legend.ui-corner-all.ui-state-default.ui-unselectable-text {
+    width: auto;
+    padding: 0 6px;
+    margin-bottom: unset;
+}
+
+span.ui-fieldset-legend-text {
+    font-size: 1rem !important;
+    margin-bottom: unset !important;
+}

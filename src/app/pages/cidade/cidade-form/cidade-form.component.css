@@ -1,0 +1,16 @@
+.btn:hover {
+    background-color: #FFFFFF;
+    color: #007bff;
+}
+
+.padding-16 {
+    padding: 16px;
+}
+
+.w-500px {
+    width: 500px;
+}
+
+.w-100 {
+    width: 100%;
+}

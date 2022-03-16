@@ -1,0 +1,87 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Vínculos - Instituição / Programa de Ensino</h1>
+    <form [formGroup]="form" class="form-group w-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-col-6">
+                    <label for="orientador">Orientador* </label>
+                    <p-dropdown (onChange)="validarPessoa()"
+                                formControlName="orientador"
+                                placeholder="Selecione o orientador..."
+                                id="orientador"
+                                [options]="pessoaOption"
+                                [virtualScroll]="true"
+                                [itemSize]="50"
+                                [style]="{ width: '100%' }"
+                                [filter]="true">
+                    </p-dropdown>
+                </div>
+
+                <div class="p-col-6">
+                    <label for="orientador">Participante* </label>
+                    <p-dropdown (onChange)="validarPessoa()"
+                                formControlName="participante"
+                                placeholder="Selecione o participante..."
+                                id="participante"
+                                [options]="pessoaOption"
+                                [virtualScroll]="true"
+                                [itemSize]="50"
+                                [style]="{ width: '100%' }"
+                                [filter]="true">
+                    </p-dropdown>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="p-col-6">
+                    <label for="programa">Programa de Ensino* </label>
+                    <p-dropdown formControlName="programaEnsino"
+                                placeholder="Selecione o programa de ensino..."
+                                id="programa"
+                                [options]="programaOption"
+                                [virtualScroll]="true"
+                                [itemSize]="50"
+                                [style]="{ width: '100%' }"
+                                [filter]="true">
+                    </p-dropdown>
+                </div>
+
+                <div class="p-col-3">
+                    <label for="DtTermino">Data de término</label>
+                    <div class="w-100">
+                        <p-calendar id="DtTermino"
+                                    dataType="string"
+                                    formControlName="dataTermino"
+                                    [locale]="ptCalendar" dateFormat="dd/mm/yy">
+                        </p-calendar>
+                    </div>
+                </div>
+
+                <div class="p-col-3">
+                    <label for="ativo">Ativo* </label>
+                    <p-dropdown
+                        id="ativo"
+                        [options]="ativoOption"
+                        scrollHeight="auto"
+                        placeholder="Selecione..."
+                        [style]="{ width: '100%' }"
+                        formControlName="ehAtivo"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="container-fluid">
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="cancel()">
+                Cancelar
+            </button>
+            <button type="button"
+                    class="btn btn-primary" (click)="save()" [disabled]="!pessoaValida || !form.valid">
+                Salvar
+            </button>
+        </div>
+    </div>
+</div>

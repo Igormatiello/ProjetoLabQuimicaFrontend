@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid d-inline-flex">
+        <div class="w-75">
+            <a [routerLink]="['/']" style="text-decoration: unset !important;">
+                <h5 class="font-primary font-weight-bold">
+                    Sistema de gerenciamento do laboratório de química
+                </h5>
+            </a>
+        </div>
+
+        <div class="w-25 d-flex justify-content-end align-content-center">
+            <button
+                class="btn btn-primary"
+                style="margin-left:.35em"
+                (click)="editarPerfil()"
+            >
+                <i class="pi pi-user-edit"></i> {{ nome }}
+            </button>
+            <button
+                pButton
+                class="ui-button-rounded float-right"
+                label="Sair"
+                icon="pi pi-sign-out"
+                style="margin-left:.35em"
+                (click)="logout()"
+            ></button>
+        </div>
+    </div>
+</nav>

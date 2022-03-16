@@ -1,0 +1,29 @@
+<div class="container">
+    <h1 class="d-flex">Cadastro de Instituições</h1>
+
+    <p-table [value]="instituicoes" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Instituição</th>
+                <th>Cidade</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-instituicao>
+            <tr>
+                <td>{{ instituicao.id }}</td>
+                <td>{{ instituicao.nome }}</td>
+                <td>{{ instituicao.cidade.nome }}</td>
+                <td>{{ instituicao.tipoInstituicao|titlecase }}</td>
+                <td class="text-center">
+                    <a [routerLink]="['/instituicao',instituicao.id]" class="btn btn-primary mr-2 pi pi-pencil"  ></a>
+                    <a (click)="delete(instituicao.id)" class="btn btn-danger pi pi-trash"></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button class="btn btn-success" style="margin-top: 16px;" (click)="newEntity()">Novo</button>
+</div>

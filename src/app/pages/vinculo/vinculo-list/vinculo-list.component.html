@@ -1,0 +1,43 @@
+<div class="container">
+    <h1>Vínculo - Instituição / Programa de Ensino </h1>
+    <div class="flex-input">
+        <label style="padding-right: 8px; padding-top: 8px" for="pessoa">Pesquisar por Pessoa: </label>
+        <p-dropdown style="width: 300px"
+                    placeholder="Selecione..."
+                    id="pessoa"
+                    #pessoa
+                    [options]="pessoasOption"
+                    [virtualScroll]="true"
+                    [itemSize]="50"
+                    [style]="{ width: '100%' }"
+                    [filter]="true"
+                    (onChange)="pesquisar(pessoa.value.id)">
+        </p-dropdown>
+    </div>
+
+    <p-table class="table-scroll" [columns]="cols" [value]="vinculos" [paginator]="true" [rows]="5"
+             [rowsPerPageOptions]="[5,10,15,20]">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vinculo let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{resolveFieldData(vinculo, col.field)}}
+                </td>
+                <td align="center">
+                    <a (click)="delete(vinculo.id)" class="btn btn-danger pi pi-trash"></a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div>
+        <button class="btn btn-success" style="margin-top: 16px;" (click)="newEntity()">Novo Vínculo</button>
+    </div>
+</div>
